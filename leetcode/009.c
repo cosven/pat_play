@@ -3,6 +3,7 @@
 #include <assert.h>
 #include <math.h>
 
+
 int test_solution();
 
 
@@ -20,7 +21,11 @@ bool isPalindrome(int x) {
     }
 
     if (x < 0) {
+        if (x == -2147483648){
+            return false;
+        }
         x = -1 * x;
+        return false;
     }
 
     assert( x >= 0 );
@@ -35,31 +40,20 @@ bool isPalindrome(int x) {
         }
     }
 
-    if ((length + 1) % 2){
-        printf("length is  %d, even. \n", length);
+    printf("length is  %d, odd. \n", length);
 
-        int j = 0;
-        int mid = length / 2 - 1;
-        while (j++ <= mid){
-            if ( (x / pow(10, length - j - 1)) != fmod(x, pow(10, j + 1)) ){
-                return false;
-            }
-        }
-    }
-    else {
-        printf("length is  %d, odd. \n", length);
+    int tmp = length - 1;
+    while (x > 0){
+        int a = x / pow(10, tmp);
+        int b = fmod(x, 10);
+        printf("%d, %d, %d\n", a, b, x);
 
-        int j = 0;
-        int mid = length / 2;
-        while (j < mid){
-            int a = x / pow(10, length - j - 1);
-            int b = fmod(x, pow(10, j + 1));
-            printf("%d, %d, %d \n", a, b, j);
-            if ( a != b){
-                return false;
-            }
-            j++;
+        if ( a != b){
+            return false;
         }
+        x -= b * pow(10, tmp);
+        tmp = tmp - 2;
+        x = x / 10;
     }
 
     return true;
@@ -71,8 +65,10 @@ int test_solution(){
     assert(isPalindrome(0) == true);
     assert(isPalindrome(11) == true);
     assert(isPalindrome(1011) == false);
+    assert(isPalindrome(54322345) == true);
     assert(isPalindrome(543212345) == true);
-    assert(isPalindrome(-11) == true);
+    assert(isPalindrome(-2147483648) == false);
+    assert(isPalindrome(-11) == false);
     assert(isPalindrome(101) == true);
     return 0;
 }
