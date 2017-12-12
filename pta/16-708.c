@@ -1,5 +1,5 @@
 /*
- * 邻接表表示的图的拓扑排序
+ * 邻接表表示的图的拓扑排序p
  */
 
 #include <stdio.h>
@@ -55,18 +55,19 @@ int main()
 
 LGraph ReadG()
 {
-  AdjList adjList;
-  PtrToAdjVNode ptrToAdjVNode[MaxVertexNum];
-  LGraph g;
+    AdjList adjList;  // 邻接表的顶点数组
+    PtrToAdjVNode ptrToAdjVNode[MaxVertexNum];
+    LGraph g;  // 指针，一个 GNode
 
-  scanf("%d %d", &g->Nv, &g->Ne);
-  for (int i=0; i<g->Ne; i++){
-    scanf("%d %d", &ptrToAdjVNode[i]->AdjV, &ptrToAdjVNode[i]->Next);
-  }
-  return g;
+    scanf("%d %d", &g->Nv, &g->Ne);
+    for (int i=0; i<g->Ne; i++){
+        scanf("%d %d", &ptrToAdjVNode[i]->AdjV, &ptrToAdjVNode[i]->Next->AdjV);
+        adjList[ptrToAdjVNode[i]->AdjV].FirstEdge = ptrToAdjVNode[i];
+    }
+    return g;
 }
 
 bool TopSort( LGraph Graph, Vertex TopOrder[] )
 {
-  return true;
+    return true;
 }
