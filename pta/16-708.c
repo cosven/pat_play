@@ -38,16 +38,16 @@ bool TopSort( LGraph Graph, Vertex TopOrder[] );
 
 int main()
 {
-    int i;
-    Vertex TopOrder[MaxVertexNum];
-    LGraph G = ReadG();
-
-    if ( TopSort(G, TopOrder)==true )
-        for ( i=0; i<G->Nv; i++ )
-            printf("%d ", TopOrder[i]);
-    else
-        printf("ERROR");
-    printf("\n");
+    /* int i; */
+    /* Vertex TopOrder[MaxVertexNum]; */
+    /* LGraph G; */
+    ReadG();
+    /* if ( TopSort(G, TopOrder)==true ) */
+    /*     for ( i=0; i<G->Nv; i++ ) */
+    /*         printf("%d ", TopOrder[i]); */
+    /* else */
+    /*     printf("ERROR"); */
+    /* printf("\n"); */
 
     return 0;
 }
@@ -56,13 +56,21 @@ int main()
 LGraph ReadG()
 {
     AdjList adjList;  // 邻接表的顶点数组
-    PtrToAdjVNode ptrToAdjVNode[MaxVertexNum];
     LGraph g;  // 指针，一个 GNode
-
-    scanf("%d %d", &g->Nv, &g->Ne);
+    g = (LGraph)malloc(sizeof(LGraph));
+    scanf("%d %d", &(g->Nv), &(g->Ne));
     for (int i=0; i<g->Ne; i++){
-        scanf("%d %d", &ptrToAdjVNode[i]->AdjV, &ptrToAdjVNode[i]->Next->AdjV);
-        adjList[ptrToAdjVNode[i]->AdjV].FirstEdge = ptrToAdjVNode[i];
+        PtrToAdjVNode ptr1;
+        PtrToAdjVNode ptr2;
+        ptr1 = (PtrToAdjVNode)malloc(sizeof(PtrToAdjVNode));
+        ptr2 = (PtrToAdjVNode)malloc(sizeof(PtrToAdjVNode));
+        scanf("%d %d", &ptr1->AdjV, &ptr2->AdjV);
+        ptr1->Next = ptr2;
+        adjList[ptr1->AdjV].FirstEdge = ptr2;
+        if (ptr2->Next == NULL){
+            printf("ptr2 Next is null");
+        }
+
     }
     return g;
 }
