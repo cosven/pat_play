@@ -30,6 +30,18 @@ def bin_search(nums, target, start, end):
         return bin_search(nums, target, middle, end)
 
 
+def bin_search_v2(nums, target, start, end):
+    while start <= end:
+        mid = (end + start) // 2
+        if nums[mid] == target:
+            return mid
+        elif nums[mid] < target:
+            start = mid + 1
+        else:
+            end = mid - 1
+    return start
+
+
 class Solution:
     def searchInsert(self, nums, target):
         if not nums:
